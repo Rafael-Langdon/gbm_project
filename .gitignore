@@ -1,0 +1,12 @@
+# Virtual environment
+gbm_env/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Data files (optional)
+data/

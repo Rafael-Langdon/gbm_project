@@ -60,3 +60,22 @@ def implied_vol(price, S0, K, r, T, option_type):
         return brentq(objective, 1e-6, 10.0)
     except:
         return np.nan
+
+
+def black_scholes_digital(S0, K, r, sigma, T, option_type='call', Q=1):
+    
+    d1 = (np.log(S0 / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+    
+    if option_type == 'call':
+        return Q * np.exp(-r * T) * stats.norm.cdf(d2)
+    elif option_type == 'put':
+        return Q * np.exp(-r * T) * stats.norm.cdf(-d2)
+
+
+
+
+def bs_d1d2(S0, K, r, sigma, T):
+    d1 = (np.log(S0 / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+    return d1, d2

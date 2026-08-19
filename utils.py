@@ -39,3 +39,24 @@ def hest_simulate(S0, mu, v0, kappa, theta, xi, rho, T, N, I):
                                 np.sqrt(v[t-1] * dt) * W_S)
 
     return S, v, times
+
+def black_scholes(S0, K, r, sigma, T, option_type='call'):
+
+    d1 = (np.log(S0 / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+
+    if option_type == 'call':
+        price = S0 * stats.norm.cdf(d1) - K*np.exp(-r*T)*stats.norm.cdf(d2)
+    elif option_type == 'put':
+        price = K*np.exp(-r*T)*stats.norm.cdf(-d2) - S0 * stats.norm.cdf(-d1)
+
+    return price
+
+
+def implied_vol(price, S0, K, r, T, option_type):
+    def objective(sigma):
+        return black_scholes(S0, K, r, sigma, T, option_type) - price
+    try:
+        return brentq(objective, 1e-6, 10.0)
+    except:
+        return np.nan

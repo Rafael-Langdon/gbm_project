@@ -14,7 +14,7 @@ def gbm_simulate(S0, mu, sigma, T, N, I):  # this function is now added to utils
     return S, times
 
 
-    def hest_simulate(S0, mu, v0, kappa, theta, xi, rho, T, N, I):
+def hest_simulate(S0, mu, v0, kappa, theta, xi, rho, T, N, I):
     dt    = 1/252
     times = np.linspace(0, T, N + 1)
     

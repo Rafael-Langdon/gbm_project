@@ -1,5 +1,6 @@
 
 import numpy as np
+from scipy import stats
 
 
 def gbm_simulate(S0, mu, sigma, T, N, I):  # this function is now added to utils.py for later use
